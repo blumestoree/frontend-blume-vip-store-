@@ -7,11 +7,15 @@ interface Props {
   };
 }
 
-async function getProdutcData(slug: string): Promise<IProduct> {
-  const response = await fetch(`${url}/findProduct/${slug}`, {
-    cache: 'no-store',
-  });
-  return response.json();
+async function getProdutcData(slug: string): Promise<IProduct | null> {
+  try {
+    const response = await fetch(`${url}/findProduct/${slug}`, {
+      cache: 'no-store',
+    });
+    return response.json();
+  } catch (error) {
+    return null;
+  }
 }
 
 export default async function Product({ params }: Props) {
@@ -19,10 +23,10 @@ export default async function Product({ params }: Props) {
 
   return (
     <div>
-      <p>{dataProduct.name}</p>
-      <p>{dataProduct.price}</p>
-      <p>{dataProduct.productId}</p>
-      <p>{dataProduct.serverId}</p>
+      <p>{dataProduct?.name}</p>
+      <p>{dataProduct?.price}</p>
+      <p>{dataProduct?.productId}</p>
+      <p>{dataProduct?.serverId}</p>
       <button>COMPRAR</button>
     </div>
   );
