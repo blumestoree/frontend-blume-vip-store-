@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { api } from '@/src/service/api';
 import { useRouter } from 'next/navigation';
+import { setCookie } from 'nookies';
 
 const formSchema = z.object({
   name: z
@@ -30,7 +31,9 @@ export default function RegisterForm() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
-      await api.post('/createUser', data);
+      const dataUser = await api.post('/createUser', data);
+      setCookie(null, 'blume_token', dataUser.data.token);
+      setCookie(null, 'blume_refresh_token', dataUser.data.refreshToken.id);
       router.push('/');
     } catch (error) {
       console.log(error);

@@ -1,5 +1,6 @@
 import { IProduct } from '@/src/types/IProduct';
 import { url } from '@/src/utils/url';
+import ProductInfos from '../sections/productInfos';
 
 interface Props {
   params: {
@@ -23,11 +24,7 @@ export default async function Product({ params }: Props) {
 
   return (
     <div>
-      <p>{dataProduct?.name}</p>
-      <p>{dataProduct?.price}</p>
-      <p>{dataProduct?.productId}</p>
-      <p>{dataProduct?.serverId}</p>
-      <button>COMPRAR</button>
+      <ProductInfos dataProduct={dataProduct} />
     </div>
   );
 }
