@@ -1,5 +1,14 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
+
+let isRefreshing = false;
+
+type FailedRequestQueue = {
+  onSuccess: (newToken: string) => void;
+  onFailure: () => void;
+};
+
+let failedRequestsQueue: FailedRequestQueue[] = [];
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_ENDPOINT,
@@ -7,7 +16,6 @@ export const api = axios.create({
 
 api.interceptors.request.use(async (config) => {
   const token = parseCookies().blume_token;
-
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -27,7 +35,8 @@ async function refreshAccessToken() {
     return newAccessToken;
   } catch (error) {
     destroyCookie(null, 'blume_token');
-    destroyCookie(null, 'refresh_token');
+    destroyCookie(null, 'blume_user_id');
+    destroyCookie(null, 'blume_refresh_token');
     throw error;
   }
 }
@@ -36,13 +45,43 @@ api.interceptors.response.use(
   (response) => {
     return response;
   },
-  async (error) => {
-    if (error.response.status === 401) {
-      try {
-        await refreshAccessToken();
-      } catch (refreshError) {
-        return Promise.reject(refreshError);
+  async (error: AxiosError) => {
+    if (error?.response?.status === 401) {
+      const originalRequest = error.config;
+
+      if (!originalRequest) {
+        return Promise.reject(error);
       }
+
+      const retryOriginalRequest = new Promise((resolve, reject) => {
+        failedRequestsQueue.push({
+          onSuccess: (newToken: string) => {
+            originalRequest.headers.Authorization = `Bearer ${newToken}`;
+            resolve(api(originalRequest));
+          },
+          onFailure: () => {
+            reject(error);
+          },
+        });
+      });
+
+      if (!isRefreshing) {
+        isRefreshing = true;
+        try {
+          const newAccessToken = await refreshAccessToken();
+          failedRequestsQueue.forEach((request) => {
+            request.onSuccess(newAccessToken);
+          });
+        } catch (refreshError) {
+          failedRequestsQueue.forEach((request) => {
+            request.onFailure();
+          });
+        } finally {
+          isRefreshing = false;
+          failedRequestsQueue = [];
+        }
+      }
+      return retryOriginalRequest;
     }
 
     return Promise.reject(error);
