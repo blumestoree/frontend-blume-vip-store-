@@ -21,6 +21,7 @@
     "nookies": "^2.5.2",
     "postcss": "^8.4.30",
     "react": "18.2.0",
+    "react-credit-cards": "^0.8.3",
     "react-dom": "18.2.0",
     "react-grid-system": "^8.1.9",
     "react-hook-form": "^7.47.0",
@@ -29,6 +30,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@types/react-credit-cards": "^0.8.2",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
