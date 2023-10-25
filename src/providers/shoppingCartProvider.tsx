@@ -1,17 +1,12 @@
 'use client';
 
 import { useState, createContext, useContext } from 'react';
-
-interface ICart {
-  name: string;
-  id: string;
-  price: string;
-}
+import { IProduct } from '../types/IProduct';
 
 interface ÍCartContextProps {
-  cartItems: ICart[];
-  setCartItems: React.Dispatch<React.SetStateAction<ICart[]>>;
-  addItem: (item: ICart) => void;
+  cartItems: IProduct[];
+  setCartItems: React.Dispatch<React.SetStateAction<IProduct[]>>;
+  addItem: (item: IProduct) => void;
 }
 
 interface AppProviderProps {
@@ -21,11 +16,11 @@ interface AppProviderProps {
 export const CartContext = createContext({} as ÍCartContextProps);
 
 export default function CartProvider({ children }: AppProviderProps) {
-  const [cartItems, setCartItems] = useState<ICart[]>([
-    { name: 'teste', id: 'abc', price: '123' },
+  const [cartItems, setCartItems] = useState<IProduct[]>([
+    { name: 'teste', id: 'abc', price: 123, serverId: 1 },
   ]);
 
-  const addItem = (item: ICart) => {
+  const addItem = (item: IProduct) => {
     setCartItems((oldItems) => [...oldItems, item]);
   };
 
