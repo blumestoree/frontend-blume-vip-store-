@@ -1,26 +1,14 @@
 'use client';
 
-import { api } from '@/src/service/api';
 import { IProduct } from '@/src/types/IProduct';
-import { useRouter } from 'next/navigation';
-import { parseCookies } from 'nookies';
+import { useCart } from '@/src/providers/shoppingCartProvider';
 
 interface ProductInfosProps {
-  dataProduct: IProduct | null;
+  dataProduct: IProduct;
 }
 
 export default function ProductInfos({ dataProduct }: ProductInfosProps) {
-  const router = useRouter();
-
-  const buyProduct = async (productId: string | undefined) => {
-    try {
-      await api.post(`/buyProduct/${productId}`, {
-        userId: parseCookies().blume_user_id,
-      });
-    } catch (error) {
-      router.push('/login');
-    }
-  };
+  const { addItem } = useCart();
 
   return (
     <div>
@@ -28,7 +16,19 @@ export default function ProductInfos({ dataProduct }: ProductInfosProps) {
       <p>{dataProduct?.price}</p>
       <p>{dataProduct?.id}</p>
       <p>{dataProduct?.serverId}</p>
-      <button onClick={() => buyProduct(dataProduct?.id)}>COMPRAR</button>
+
+      <button
+        onClick={() =>
+          addItem({
+            id: dataProduct?.id,
+            name: dataProduct?.name,
+            price: dataProduct?.price,
+            serverId: dataProduct?.serverId,
+          })
+        }
+      >
+        COMPRAR
+      </button>
     </div>
   );
 }

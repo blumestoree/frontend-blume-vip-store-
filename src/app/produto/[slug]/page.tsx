@@ -1,6 +1,7 @@
 import { IProduct } from '@/src/types/IProduct';
 import { url } from '@/src/utils/url';
 import ProductInfos from '../sections/productInfos';
+import { notFound } from 'next/navigation';
 
 interface Props {
   params: {
@@ -8,15 +9,14 @@ interface Props {
   };
 }
 
-async function getProdutcData(slug: string): Promise<IProduct | null> {
-  try {
-    const response = await fetch(`${url}/findProduct/${slug}`, {
-      cache: 'no-store',
-    });
-    return response.json();
-  } catch (error) {
-    return null;
+async function getProdutcData(slug: string): Promise<IProduct> {
+  const response = await fetch(`${url}/findProduct/${slug}`, {
+    cache: 'no-store',
+  });
+  if (response.status === 404) {
+    notFound();
   }
+  return response.json();
 }
 
 export default async function Product({ params }: Props) {

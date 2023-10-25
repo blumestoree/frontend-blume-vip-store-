@@ -16,9 +16,7 @@ interface AppProviderProps {
 export const CartContext = createContext({} as ÍCartContextProps);
 
 export default function CartProvider({ children }: AppProviderProps) {
-  const [cartItems, setCartItems] = useState<IProduct[]>([
-    { name: 'teste', id: 'abc', price: 123, serverId: 1 },
-  ]);
+  const [cartItems, setCartItems] = useState<IProduct[]>([]);
 
   const addItem = (item: IProduct) => {
     setCartItems((oldItems) => [...oldItems, item]);

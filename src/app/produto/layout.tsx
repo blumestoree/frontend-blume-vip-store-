@@ -1,6 +1,6 @@
 import ShoppingCart from '@/src/sections/shoppingCart';
 
-export default function HomeLayout({
+export default function ProductLayout({
   children,
 }: {
   children: React.ReactNode;
