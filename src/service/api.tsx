@@ -1,5 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
+import { redirect } from 'next/navigation';
 
 let isRefreshing = false;
 
@@ -37,7 +38,7 @@ async function refreshAccessToken() {
     destroyCookie(null, 'blume_token');
     destroyCookie(null, 'blume_user_id');
     destroyCookie(null, 'blume_refresh_token');
-    throw error;
+    redirect('/login');
   }
 }
 
