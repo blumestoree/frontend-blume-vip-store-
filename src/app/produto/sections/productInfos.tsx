@@ -27,7 +27,7 @@ export default function ProductInfos({ dataProduct }: ProductInfosProps) {
           })
         }
       >
-        COMPRAR
+        ADICIONAR AO CARRINHO
       </button>
     </div>
   );
