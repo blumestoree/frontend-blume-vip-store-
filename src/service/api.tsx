@@ -1,6 +1,5 @@
 import axios, { AxiosError } from 'axios';
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
-import { redirect } from 'next/navigation';
 
 let isRefreshing = false;
 
@@ -25,6 +24,9 @@ api.interceptors.request.use(async (config) => {
 });
 
 async function refreshAccessToken() {
+  if (!parseCookies()?.blume_user_id) {
+    window.location.href = '/login';
+  }
   try {
     const response = await api.post('/refreshToken', {
       refreshToken: parseCookies().blume_refresh_token,
@@ -38,7 +40,6 @@ async function refreshAccessToken() {
     destroyCookie(null, 'blume_token');
     destroyCookie(null, 'blume_user_id');
     destroyCookie(null, 'blume_refresh_token');
-    redirect('/login');
   }
 }
 
