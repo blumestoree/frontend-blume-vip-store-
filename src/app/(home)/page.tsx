@@ -4,14 +4,14 @@ import HomeBanner from './sections/banner';
 import HomeItems from './sections/items';
 import Link from 'next/link';
 
-async function getAllProdutcsData(): Promise<IProducts> {
+async function getAllProdutcsData(): Promise<IProducts[]> {
   try {
     const response = await fetch(`${url}/findAllProduct`, {
       cache: 'no-store',
     });
     return response.json();
   } catch (error) {
-    return { products: [] };
+    return [];
   }
 }
 
@@ -24,7 +24,7 @@ export default async function Home() {
       <br />
       <Link href='/cadastro'>Cadastrar</Link>
       <HomeBanner />
-      <HomeItems products={dataProducts?.products} />
+      <HomeItems products={dataProducts} />
     </main>
   );
 }

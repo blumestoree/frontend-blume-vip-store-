@@ -1,7 +1,7 @@
 import { IProducts } from '@/src/types/IProducts';
 import Link from 'next/link';
 
-export default function HomeItems({ products }: IProducts) {
+export default function HomeItems({ products }: { products: IProducts[] }) {
   return (
     <div>
       {products?.map((product) => (
