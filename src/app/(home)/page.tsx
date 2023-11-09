@@ -1,12 +1,12 @@
 import { url } from '@/src/utils/url';
-import { IProducts } from '@/src/types/IProducts';
+import { ICategory } from '@/src/types/ICategory';
 import HomeBanner from './sections/banner';
 import HomeItems from './sections/items';
 import Link from 'next/link';
 
-async function getAllProdutcsData(): Promise<IProducts[]> {
+async function getAllCategoryWithProductsData(): Promise<ICategory[]> {
   try {
-    const response = await fetch(`${url}/findAllProduct`, {
+    const response = await fetch(`${url}/findAllCategory`, {
       cache: 'no-store',
     });
     return response.json();
@@ -16,7 +16,7 @@ async function getAllProdutcsData(): Promise<IProducts[]> {
 }
 
 export default async function Home() {
-  const dataProducts = await getAllProdutcsData();
+  const response = await getAllCategoryWithProductsData();
 
   return (
     <main className='font-open_Sans relative bg-red-500 py-8'>
@@ -24,7 +24,7 @@ export default async function Home() {
       <br />
       <Link href='/cadastro'>Cadastrar</Link>
       <HomeBanner />
-      <HomeItems products={dataProducts} />
+      <HomeItems categories={response} />
     </main>
   );
 }
