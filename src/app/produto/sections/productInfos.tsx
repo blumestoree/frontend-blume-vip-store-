@@ -12,10 +12,12 @@ export default function ProductInfos({ dataProduct }: ProductInfosProps) {
 
   return (
     <div>
-      <p>{dataProduct?.name}</p>
-      <p>{dataProduct?.price}</p>
-      <p>{dataProduct?.id}</p>
-      <p>{dataProduct?.serverId}</p>
+      <div className='bg-blue-500'>
+        <p>{dataProduct?.name}</p>
+        <p>{dataProduct?.price}</p>
+        <p>{dataProduct?.id}</p>
+        <p>{dataProduct?.serverId}</p>
+      </div>
 
       <button
         onClick={() =>

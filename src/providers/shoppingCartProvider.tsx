@@ -3,10 +3,12 @@
 import { useState, createContext, useContext } from 'react';
 import { IProduct } from '../types/IProduct';
 
+type IProducOmitItems = Omit<IProduct, 'image' | 'category' | 'categoryId'>;
+
 interface ÍCartContextProps {
-  cartItems: IProduct[];
-  setCartItems: React.Dispatch<React.SetStateAction<IProduct[]>>;
-  addItem: (item: IProduct) => void;
+  cartItems: IProducOmitItems[];
+  setCartItems: React.Dispatch<React.SetStateAction<IProducOmitItems[]>>;
+  addItem: (item: IProducOmitItems) => void;
 }
 
 interface AppProviderProps {
@@ -16,9 +18,9 @@ interface AppProviderProps {
 export const CartContext = createContext({} as ÍCartContextProps);
 
 export default function CartProvider({ children }: AppProviderProps) {
-  const [cartItems, setCartItems] = useState<IProduct[]>([]);
+  const [cartItems, setCartItems] = useState<IProducOmitItems[]>([]);
 
-  const addItem = (item: IProduct) => {
+  const addItem = (item: IProducOmitItems) => {
     setCartItems((oldItems) => [...oldItems, item]);
   };
 
