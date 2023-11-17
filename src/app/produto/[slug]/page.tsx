@@ -1,6 +1,6 @@
 import { IProduct } from '@/src/types/IProduct';
 import { url } from '@/src/utils/url';
-import ProductInfos from '../sections/productInfos';
+import ProductInfos from '../sections/product.infos';
 import { notFound } from 'next/navigation';
 
 interface Props {
