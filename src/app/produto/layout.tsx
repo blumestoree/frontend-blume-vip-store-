@@ -5,12 +5,5 @@ export default function ProductLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <section>
-      <div className='bg-green-400'>
-        <ShoppingCart />
-      </div>
-      {children}
-    </section>
-  );
+  return <section>{children}</section>;
 }
