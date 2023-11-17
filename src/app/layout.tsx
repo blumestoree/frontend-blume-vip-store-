@@ -1,10 +1,14 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 import 'react-credit-cards/es/styles-compiled.css';
 import CartProvider from '../providers/shoppingCartProvider';
+import Layout from '../sections/layout';
 
-const inter = Inter({ subsets: ['latin'] });
+const montserrat = Montserrat({
+  display: 'swap',
+  subsets: ['latin'],
+});
 
 export const metadata: Metadata = {
   title: 'Blume',
@@ -18,8 +22,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
-        <CartProvider>{children}</CartProvider>
+      <body className={montserrat.className}>
+        <CartProvider>
+          <Layout>{children}</Layout>
+        </CartProvider>
       </body>
     </html>
   );
