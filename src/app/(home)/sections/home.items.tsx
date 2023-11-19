@@ -37,42 +37,51 @@ const items = [
 
 export default function HomeItems({ categories }: IHomeItems) {
   return (
-    <div>
-      <div>
-        {items.map((category) => (
-          <div key={category.id}>
-            <div className='flex justify-between'>
-              <div>{category.name}</div>
-              <Link href='/produto'>VER TODOS</Link>
+    <div className='px-72 py-10'>
+      {items.map((category) => (
+        <div key={category.id}>
+          <div className='flex justify-between'>
+            <div className='mb-5 text-xl font-bold text-black'>
+              {category.name}
             </div>
-            <div className='grid grid-cols-1 gap-6 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4'>
-              {category.products.slice(0, 4).map((product) => (
-                <Link
-                  className='m-auto w-[285px]'
-                  href={`produto/${product?.id}`}
-                  key={product?.id}
-                >
+            <Link href='/produto' className='text-sm text-black/50'>
+              VER TODOS
+            </Link>
+          </div>
+          <div className='grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4'>
+            {category.products.slice(0, 4).map((product) => (
+              <Link
+                className='group relative mb-10 w-[320px] overflow-hidden rounded border-2 border-black'
+                href={`produto/${product?.id}`}
+                key={product?.id}
+              >
+                <div>
+                  <Image
+                    src={ProductImage}
+                    width={285}
+                    height={300}
+                    alt='product-image'
+                  />
                   <div>
-                    <Image
-                      src={ProductImage}
-                      width={285}
-                      height={300}
-                      alt='product-image'
-                    />
-                    <div className='bg-blue-600'>
-                      <p>{product.name}</p>
-                      <p>{product.price}</p>
+                    <p className='mt-5 text-xl font-bold'>{product.name}</p>
+                    <p className='my-2'>
+                      {product.price?.toLocaleString('pt-br', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      })}
+                    </p>
+                    <div className='absolute bottom-0 w-full bg-red-600 opacity-0 group-hover:animate-overlayShow'>
                       <p>{product.price * 2} sem juros</p>
                       <div>adicionar no carrinho</div>
                       <div>ver produto</div>
                     </div>
                   </div>
-                </Link>
-              ))}
-            </div>
+                </div>
+              </Link>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }
