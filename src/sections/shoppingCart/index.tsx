@@ -18,7 +18,7 @@ export default function ShoppingCart() {
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className='data-[state=open]:animate-overlayShow fixed inset-0 bg-black/50' />
+        <Dialog.Overlay className='fixed inset-0 bg-black/50' />
         <Dialog.Content className='absolute right-0 top-0 h-screen w-[500px] bg-red-700 '>
           <div className='flex justify-between'>
             <Dialog.Close asChild>
