@@ -37,7 +37,7 @@ const items = [
 
 export default function HomeItems({ categories }: IHomeItems) {
   return (
-    <div className='px-72 py-10'>
+    <div className='px-[384px] py-10'>
       {items.map((category) => (
         <div key={category.id}>
           <div className='flex justify-between'>
@@ -48,10 +48,10 @@ export default function HomeItems({ categories }: IHomeItems) {
               VER TODOS
             </Link>
           </div>
-          <div className='grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4'>
+          <div className='grid grid-cols-1 gap-10 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4'>
             {category.products.slice(0, 4).map((product) => (
               <Link
-                className='group relative mb-10 w-[320px] overflow-hidden rounded border-2 border-black'
+                className='group relative mb-10 overflow-hidden rounded border-2 border-black'
                 href={`produto/${product?.id}`}
                 key={product?.id}
               >
