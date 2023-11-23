@@ -5,6 +5,7 @@ import Image from 'next/image';
 import CartImage from '/public/blume.png';
 import { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
+import ShoppingCartIcon from '/public/shopping-cart.svg';
 
 export default function ShoppingCart() {
   const [isOpen, setIsOpen] = useState(true);
@@ -14,7 +15,12 @@ export default function ShoppingCart() {
     <Dialog.Root>
       <Dialog.Trigger asChild>
         <button onClick={() => setIsOpen(!isOpen)}>
-          <Image src={CartImage} width={30} height={30} alt='cart image' />
+          <Image
+            src={ShoppingCartIcon}
+            width={30}
+            height={30}
+            alt='cart image'
+          />
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
