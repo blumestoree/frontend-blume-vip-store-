@@ -8,11 +8,13 @@ import * as Dialog from '@radix-ui/react-dialog';
 import ShoppingCartIcon from '/public/shopping-cart.svg';
 
 export default function ShoppingCart() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const { cartItems } = useCart();
 
+  const cartAnimationClass = isOpen ? 'animateOpenCart' : 'animateCloseCart';
+
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen}>
       <Dialog.Trigger asChild>
         <button onClick={() => setIsOpen(!isOpen)}>
           <Image
@@ -25,11 +27,13 @@ export default function ShoppingCart() {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className='fixed inset-0 bg-black/50' />
-        <Dialog.Content className='absolute right-0 top-0 h-screen w-[500px] bg-red-700 '>
+        <Dialog.Content
+          className={`absolute right-0 top-0 h-screen w-[500px] bg-red-700 data-[state=open]:animate-${cartAnimationClass}`}
+        >
           <div className='flex justify-between'>
-            <Dialog.Close asChild>
-              <button>CLOSE</button>
-            </Dialog.Close>
+            {/* <Dialog.Close asChild> */}
+            <button onClick={() => setIsOpen(!isOpen)}>CLOSE</button>
+            {/* </Dialog.Close> */}
             <Dialog.Description className='text-mauve11 mb-5 mt-[10px] text-[15px] leading-normal'>
               Make changes to your profile here. Click save when done.
             </Dialog.Description>

@@ -37,7 +37,7 @@ const items = [
 
 export default function HomeItems({ categories }: IHomeItems) {
   return (
-    <div className='px-[384px] py-10'>
+    <div className='m-auto py-10 sm:w-sm md:w-md lg:w-lg xl:w-xl xxl:w-xxl xxxl:w-xxxl'>
       {items.map((category) => (
         <div key={category.id}>
           <div className='flex justify-between'>
@@ -48,7 +48,7 @@ export default function HomeItems({ categories }: IHomeItems) {
               VER TODOS
             </Link>
           </div>
-          <div className='grid grid-cols-1 gap-10 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4'>
+          <div className='grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4'>
             {category.products.slice(0, 4).map((product) => (
               <Link
                 className='group relative mb-10 overflow-hidden rounded border-2 border-black'
@@ -71,7 +71,6 @@ export default function HomeItems({ categories }: IHomeItems) {
                       })}
                     </p>
                     <div className='absolute bottom-0 w-full bg-red-600 opacity-0 group-hover:animate-overlayShow'>
-                      <p>{product.price * 2} sem juros</p>
                       <div>adicionar no carrinho</div>
                       <div>ver produto</div>
                     </div>
