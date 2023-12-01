@@ -2,10 +2,10 @@
 import { useCart } from '@/src/providers/shoppingCartProvider';
 import Link from 'next/link';
 import Image from 'next/image';
-import CartImage from '/public/blume.png';
+import CloseCartSvg from '/public/svg/arrow.svg';
 import { useState } from 'react';
-import * as Dialog from '@radix-ui/react-dialog';
 import ShoppingCartIcon from '/public/shopping-cart.svg';
+import Modal from 'react-modal';
 
 export default function ShoppingCart() {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,46 +14,52 @@ export default function ShoppingCart() {
   const cartAnimationClass = isOpen ? 'animateOpenCart' : 'animateCloseCart';
 
   return (
-    <Dialog.Root open={isOpen}>
-      <Dialog.Trigger asChild>
-        <button onClick={() => setIsOpen(!isOpen)}>
-          <Image
-            src={ShoppingCartIcon}
-            width={30}
-            height={30}
-            alt='cart image'
-          />
-        </button>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className='fixed inset-0 bg-black/50' />
-        <Dialog.Content
-          className={`absolute right-0 top-0 h-screen w-[500px] bg-red-700 data-[state=open]:animate-${cartAnimationClass}`}
-        >
-          <div className='flex justify-between'>
-            {/* <Dialog.Close asChild> */}
-            <button onClick={() => setIsOpen(!isOpen)}>CLOSE</button>
-            {/* </Dialog.Close> */}
-            <Dialog.Description className='text-mauve11 mb-5 mt-[10px] text-[15px] leading-normal'>
-              Make changes to your profile here. Click save when done.
-            </Dialog.Description>
+    <div>
+      <button onClick={() => setIsOpen(true)}>
+        <Image src={ShoppingCartIcon} width={30} height={30} alt='cart image' />
+      </button>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+        contentLabel='Shopping Cart Modal'
+        overlayClassName={{
+          base: 'fixed inset-0 bg-black/50',
+          afterOpen: '',
+          beforeClose: '',
+        }}
+        className={{
+          base: `absolute right-0 top-0 flex h-screen w-[500px] transform flex-col bg-white p-5 animate-${cartAnimationClass}`,
+          afterOpen: '',
+          beforeClose: '',
+        }}
+        closeTimeoutMS={200}
+      >
+        <div className='flex justify-between'>
+          <button onClick={() => setIsOpen(false)}>
+            <Image src={CloseCartSvg} width={20} height={20} alt='close' />
+          </button>
+          <div className='flex gap-3'>
+            <div>itens</div>
+            <button>limpar carrinho</button>
           </div>
-          <div className='mb-[15px] flex items-center gap-5'>ITEM 1</div>
-          <div className='mb-[15px] flex items-center gap-5'>ITEM 1</div>
-          <div className='mb-[15px] flex items-center gap-5'>ITEM 1</div>
-          <div className='mb-[15px] flex items-center gap-5'>ITEM 1</div>
-
-          <div>
-            <div className='flex'>
-              <p>Subtotal</p>
-              <p>50</p>
-            </div>
-            <Dialog.Close asChild>
-              <Link href={`/checkout`}>FINALIZAR COMPRA</Link>
-            </Dialog.Close>
-          </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </div>
+        <div className='flex flex-col gap-10 overflow-y-scroll py-5'>
+          <div>produto 1</div>
+          <div>produto 1</div>
+          <div>produto 1</div>
+          <div>produto 1</div>
+          <div>produto 1</div>
+          <div>produto 1</div>
+          <div>produto 1</div>
+          <div>produto 1</div>
+          <div>produto 1</div>
+        </div>
+        <div className='mt-auto flex justify-between'>
+          <div>Total</div>
+          <div>200</div>
+        </div>
+        <Link href={`/checkout`}>FINALIZAR COMPRA</Link>
+      </Modal>
+    </div>
   );
 }
