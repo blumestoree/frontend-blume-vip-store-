@@ -1,44 +1,16 @@
 import { ICategory } from '@/src/types/ICategory';
 import Image from 'next/image';
 import Link from 'next/link';
-import ProductImage from '/public/product.png';
+import ProductImage from '/public/img/product.png';
 
 interface IHomeItems {
   categories: ICategory[];
 }
 
-const items = [
-  {
-    id: 'string',
-    name: 'categoria boa',
-    products: [
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-    ],
-  },
-  {
-    id: 'string',
-    name: 'categoria boa',
-    products: [
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-      { id: 'string', name: 'produtinho', image: 'produtinho', price: 100 },
-    ],
-  },
-];
-
 export default function HomeItems({ categories }: IHomeItems) {
   return (
     <div className='m-auto py-10 sm:w-sm md:w-md lg:w-lg xl:w-xl xxl:w-xxl xxxl:w-xxxl'>
-      {items.map((category) => (
+      {categories.map((category) => (
         <div key={category.id}>
           <div className='flex justify-between'>
             <div className='mb-5 text-xl font-bold text-black'>

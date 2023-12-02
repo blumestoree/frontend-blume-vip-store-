@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import ProductImage from '/public/product.png';
+import ProductImage from '/public/img/product.png';
 import { IProduct } from '@/src/types/IProduct';
 import Link from 'next/link';
 
@@ -38,7 +38,7 @@ const items = [
 
 export default function Producs({ products }: IProduct[]) {
   return (
-    <div className='grid grid-cols-1 gap-6 tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4'>
+    <div className='tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4 grid grid-cols-1 gap-6'>
       {items.map((product) => (
         <div key={product.id}>
           <Link href={`produto/${product?.id}`} key={product?.id}>

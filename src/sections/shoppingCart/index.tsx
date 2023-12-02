@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import CloseCartSvg from '/public/svg/arrow.svg';
 import { useState } from 'react';
-import ShoppingCartIcon from '/public/shopping-cart.svg';
+import ShoppingCartIcon from '/public/svg/shopping-cart.svg';
 import Modal from 'react-modal';
 
 export default function ShoppingCart() {
@@ -39,20 +39,12 @@ export default function ShoppingCart() {
             <Image src={CloseCartSvg} width={20} height={20} alt='close' />
           </button>
           <div className='flex gap-3'>
-            <div>itens</div>
-            <button>limpar carrinho</button>
+            <div className='rounded border p-1'>1 item</div>
+            <button className='rounded bg-blue-500 p-1'>limpar carrinho</button>
           </div>
         </div>
         <div className='flex flex-col gap-10 overflow-y-scroll py-5'>
-          <div>produto 1</div>
-          <div>produto 1</div>
-          <div>produto 1</div>
-          <div>produto 1</div>
-          <div>produto 1</div>
-          <div>produto 1</div>
-          <div>produto 1</div>
-          <div>produto 1</div>
-          <div>produto 1</div>
+          <div className='bg-blue-500 px-1 py-3'>produto 1</div>
         </div>
         <div className='mt-auto flex justify-between'>
           <div>Total</div>
