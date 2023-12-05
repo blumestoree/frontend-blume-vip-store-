@@ -1,5 +1,3 @@
-import ShoppingCart from '@/src/sections/shoppingCart';
-
 export default function ProductLayout({
   children,
 }: {
