@@ -1,14 +1,20 @@
 'use client';
 
 import { useState, createContext, useContext } from 'react';
-import { IProduct } from '../types/IProduct';
-
-type IProducOmitItems = Omit<IProduct, 'image' | 'category' | 'categoryId'>;
+interface ICartItems {
+  id: string;
+  image: string;
+  name: string;
+  price: number;
+}
 
 interface ÍCartContextProps {
-  cartItems: IProducOmitItems[];
-  setCartItems: React.Dispatch<React.SetStateAction<IProducOmitItems[]>>;
-  addItem: (item: IProducOmitItems) => void;
+  cartItems: ICartItems[];
+  setCartItems: React.Dispatch<React.SetStateAction<ICartItems[]>>;
+  addItem: (item: ICartItems) => void;
+  removeItem: (itemId: string) => void;
+  removeAllItems: () => void;
+  getCartTotal: () => number;
 }
 
 interface AppProviderProps {
@@ -18,14 +24,39 @@ interface AppProviderProps {
 export const CartContext = createContext({} as ÍCartContextProps);
 
 export default function CartProvider({ children }: AppProviderProps) {
-  const [cartItems, setCartItems] = useState<IProducOmitItems[]>([]);
+  const [cartItems, setCartItems] = useState<ICartItems[]>([]);
 
-  const addItem = (item: IProducOmitItems) => {
+  const addItem = (item: ICartItems) => {
     setCartItems((oldItems) => [...oldItems, item]);
   };
 
+  const removeItem = (itemId: string) => {
+    setCartItems(
+      cartItems.filter((product) => {
+        itemId !== product.id;
+      })
+    );
+  };
+
+  const removeAllItems = () => {
+    setCartItems([]);
+  };
+
+  const getCartTotal = (): number => {
+    return cartItems.reduce((total, item) => total + item.price, 0);
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, setCartItems, addItem }}>
+    <CartContext.Provider
+      value={{
+        cartItems,
+        setCartItems,
+        addItem,
+        removeItem,
+        removeAllItems,
+        getCartTotal,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
