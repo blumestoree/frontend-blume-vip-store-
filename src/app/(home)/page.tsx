@@ -1,13 +1,16 @@
-import { url } from '@/src/utils/url';
+import { url, serverId } from '@/src/utils/url';
 import { ICategory } from '@/src/types/ICategory';
 import HomeBanner from './sections/home.banner';
 import HomeItems from './sections/home.items';
 
 async function getAllCategory(): Promise<ICategory[]> {
   try {
-    const response = await fetch(`${url}/findAllCategory`, {
-      cache: 'no-store',
-    });
+    const response = await fetch(
+      `${url}/findAllCategory?serverId=${serverId}`,
+      {
+        cache: 'no-store',
+      }
+    );
     return response.json();
   } catch (error) {
     return [];
