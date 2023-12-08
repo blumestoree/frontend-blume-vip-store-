@@ -40,7 +40,7 @@ export default function ShoppingCart() {
             <Image src={CloseCartSvg} width={20} height={20} alt='close' />
           </button>
           <div className='flex gap-3'>
-            <div className='rounded border p-1'>{cartItems.length} item</div>
+            <div className='rounded border p-1'>{cartItems?.length} item</div>
             <button
               onClick={() => {
                 removeAllItems();
@@ -55,19 +55,19 @@ export default function ShoppingCart() {
           {cartItems.map((product) => (
             <div key={product.id} className='flex gap-2 bg-blue-100 px-1 py-3'>
               <Image
-                src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${product.image}`}
+                src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${product?.image}`}
                 width={100}
                 height={50}
                 alt='product image'
               />
               <div>
-                <div>{product.name}</div>
-                <div>{product.price}</div>
+                <div>{product?.name}</div>
+                <div>{product?.price}</div>
               </div>
               <button
                 className='ml-auto'
                 onClick={() => {
-                  removeItem(product.id);
+                  removeItem(product?.id);
                 }}
               >
                 <Image

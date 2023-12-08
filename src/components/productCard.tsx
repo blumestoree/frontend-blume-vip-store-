@@ -17,16 +17,16 @@ export default function ProductCard({ product }: IProductComponent) {
     <div className='group relative mb-10 overflow-hidden rounded border-2 border-black'>
       <Link href={`produto/${product?.id}`} key={product?.id}>
         <Image
-          src={ProductImage}
+          src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${product?.image}`}
           width={285}
           height={300}
           alt='product-image'
         />
       </Link>
       <div>
-        <p className='mt-5 text-xl font-bold'>{product.name}</p>
+        <p className='mt-5 text-xl font-bold'>{product?.name}</p>
         <p className='my-2'>
-          {product.price?.toLocaleString('pt-br', {
+          {product?.price?.toLocaleString('pt-br', {
             style: 'currency',
             currency: 'BRL',
           })}
@@ -35,10 +35,10 @@ export default function ProductCard({ product }: IProductComponent) {
           <button
             onClick={() =>
               addItem({
-                id: product.id,
-                image: product.image,
-                name: product.name,
-                price: product.price,
+                id: product?.id,
+                image: product?.image,
+                name: product?.name,
+                price: product?.price,
               })
             }
           >

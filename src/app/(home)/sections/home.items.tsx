@@ -8,7 +8,7 @@ interface IHomeItems {
 
 export default function HomeItems({ categories }: IHomeItems) {
   return (
-    <div className='m-auto py-10 sm:w-sm md:w-md lg:w-lg xl:w-xl xxl:w-xxl xxxl:w-xxxl'>
+    <div className='m-auto pt-[70px] sm:w-sm md:w-md lg:w-lg xl:w-xl xxl:w-xxl xxxl:w-xxxl'>
       {categories.map((category) => (
         <div key={category.id}>
           <div className='flex justify-between'>
