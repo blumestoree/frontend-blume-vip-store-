@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import TestImage from '/public/img/test.png';
 import { IProduct } from '../types/IProduct';
 import { useCart } from '../providers/shoppingCartProvider';
 
@@ -16,7 +17,8 @@ export default function ProductCard({ product }: IProductComponent) {
     <div className='group relative mb-10 overflow-hidden rounded border-2 border-black'>
       <Link href={`produto/${product?.id}`} key={product?.id}>
         <Image
-          src={`https://${process.env.NEXT_PUBLIC_IMAGE_URL}/${product?.image}`}
+          src={TestImage}
+          // src={`https://${process.env.NEXT_PUBLIC_IMAGE_URL}/${product?.image}`}
           width={285}
           height={300}
           alt='product-image'
