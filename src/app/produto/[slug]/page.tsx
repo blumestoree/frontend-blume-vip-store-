@@ -10,9 +10,7 @@ interface Props {
 }
 
 async function getProdutcData(slug: string): Promise<IProduct> {
-  const response = await fetch(`${url}/findProduct/${slug}`, {
-    cache: 'no-store',
-  });
+  const response = await fetch(`${url}/findProduct/${slug}`);
   if (response.status === 404) {
     notFound();
   }

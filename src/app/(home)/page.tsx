@@ -5,12 +5,7 @@ import HomeItems from './sections/home.items';
 
 async function getAllCategory(): Promise<ICategory[]> {
   try {
-    const response = await fetch(
-      `${url}/findAllCategory?serverId=${serverId}`,
-      {
-        cache: 'no-store',
-      }
-    );
+    const response = await fetch(`${url}/findAllCategory?serverId=${serverId}`);
     return response.json();
   } catch (error) {
     return [];
@@ -19,6 +14,7 @@ async function getAllCategory(): Promise<ICategory[]> {
 
 export default async function Home() {
   const response = await getAllCategory();
+  console.log(response);
 
   return (
     <main>

@@ -4,9 +4,7 @@ import Producs from './sections/product.allProducts';
 
 async function getAllProducts(): Promise<IProduct[]> {
   try {
-    const response = await fetch(`${url}/findAllProducts`, {
-      cache: 'no-store',
-    });
+    const response = await fetch(`${url}/findAllProducts`);
     return response.json();
   } catch (error) {
     return [];
