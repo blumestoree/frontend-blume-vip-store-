@@ -20,10 +20,6 @@ module.exports = {
         xxxl: '1540px',
       },
       keyframes: {
-        overlayShow: {
-          from: { opacity: 0, transform: 'translateY(100%)' },
-          to: { opacity: 1, transform: 'translateY(0)' },
-        },
         animateOpenCart: {
           from: { transform: 'translateX(100%)' },
           to: { transform: 'translateX(0%)' },
@@ -34,7 +30,6 @@ module.exports = {
         },
       },
       animation: {
-        overlayShow: 'overlayShow 0.2s forwards',
         animateOpenCart: 'animateOpenCart 0.2s forwards',
         animateCloseCart: 'animateCloseCart 0.2s forwards',
       },

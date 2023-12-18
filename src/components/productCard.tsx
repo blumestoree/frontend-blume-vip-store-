@@ -14,7 +14,7 @@ export default function ProductCard({ product }: IProductComponent) {
   const { addItem } = useCart();
 
   return (
-    <div className='group relative mb-10 overflow-hidden rounded border-2 border-black'>
+    <div className='group relative mb-10 overflow-hidden rounded-lg border shadow-sm'>
       <Link href={`produto/${product?.id}`} key={product?.id}>
         <Image
           src={TestImage}
@@ -25,27 +25,34 @@ export default function ProductCard({ product }: IProductComponent) {
         />
       </Link>
       <div>
-        <p className='mt-5 text-xl font-bold'>{product?.name}</p>
-        <p className='my-2'>
-          {product?.price?.toLocaleString('pt-br', {
-            style: 'currency',
-            currency: 'BRL',
-          })}
-        </p>
-        <div className='absolute bottom-0 w-full bg-red-600 opacity-0 group-hover:animate-overlayShow'>
-          <button
-            onClick={() =>
-              addItem({
-                id: product?.id,
-                image: product?.image,
-                name: product?.name,
-                price: product?.price,
-              })
-            }
-          >
-            adicionar no carrinho
-          </button>
-          <div>ver produto</div>
+        <div className='flex h-[100px] flex-col justify-center px-3'>
+          <p className='text-lg'>{product?.name}</p>
+          <p className='my-2 text-xl font-bold'>
+            {product?.price?.toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </p>
+        </div>
+        <div className='absolute bottom-0 h-[100px] w-full translate-y-full bg-blue-200 opacity-0 transition group-hover:translate-y-0 group-hover:opacity-100'>
+          <div className='flex flex-col justify-center gap-2 p-3'>
+            <button
+              className='bg-[#00546B] p-1 text-white'
+              onClick={() =>
+                addItem({
+                  id: product?.id,
+                  image: product?.image,
+                  name: product?.name,
+                  price: product?.price,
+                })
+              }
+            >
+              Adicionar no carrinho
+            </button>
+            <button className='border border-[#00546B] p-1'>
+              Comprar agora
+            </button>
+          </div>
         </div>
       </div>
     </div>
