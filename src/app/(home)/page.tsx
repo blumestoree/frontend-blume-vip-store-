@@ -14,7 +14,6 @@ async function getAllCategory(): Promise<ICategory[]> {
 
 export default async function Home() {
   const response = await getAllCategory();
-  console.log(response);
 
   return (
     <main>
