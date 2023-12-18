@@ -13,3 +13,9 @@ div::-webkit-scrollbar-thumb {
 div::-webkit-scrollbar-track {
 	display: none;
 }
+
+@layer components {
+	.grid-style {
+	  @apply m-auto sm:w-sm md:w-md lg:w-lg xl:w-xl xxl:w-xxl xxxl:w-xxxl;
+	}
+  }

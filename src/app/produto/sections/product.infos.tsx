@@ -12,7 +12,7 @@ export default function ProductInfos({ dataProduct }: ProductInfosProps) {
   const { addItem } = useCart();
 
   return (
-    <div className='m-auto pt-[70px] sm:w-sm md:w-md lg:w-lg xl:w-xl xxl:w-xxl xxxl:w-xxxl'>
+    <div className='grid-style pt-[70px]'>
       <div className='flex'>
         <Image
           src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${dataProduct?.image}`}
