@@ -19,7 +19,7 @@ export default function HomeItems({ categories }: IHomeItems) {
               VER TODOS
             </Link>
           </div>
-          <div className='mb-10 grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4'>
+          <div className='mb-20 grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4'>
             {category?.products?.slice(0, 4).map((product) => (
               <ProductCard key={product?.id} product={product} />
             ))}

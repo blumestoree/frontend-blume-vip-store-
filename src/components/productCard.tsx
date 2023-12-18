@@ -14,7 +14,7 @@ export default function ProductCard({ product }: IProductComponent) {
   const { addItem } = useCart();
 
   return (
-    <div className='group relative mb-10 overflow-hidden rounded-lg border shadow-sm'>
+    <div className='group relative overflow-hidden rounded-lg border shadow-sm'>
       <Link href={`produto/${product?.id}`} key={product?.id}>
         <Image
           src={TestImage}
