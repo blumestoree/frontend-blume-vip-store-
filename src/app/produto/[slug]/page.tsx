@@ -18,11 +18,11 @@ async function getProdutcData(slug: string): Promise<IProduct> {
 }
 
 export default async function Product({ params }: Props) {
-  const dataProduct = await getProdutcData(params.slug);
+  const product = await getProdutcData(params.slug);
 
   return (
     <div>
-      <ProductInfos dataProduct={dataProduct} />
+      <ProductInfos product={product} />
     </div>
   );
 }
