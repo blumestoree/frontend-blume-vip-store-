@@ -11,7 +11,7 @@ interface IProductComponent {
 }
 
 export default function ProductCard({ product }: IProductComponent) {
-  const { addItem } = useCart();
+  const { addItem, setIsOpen } = useCart();
 
   return (
     <div className='group relative overflow-hidden rounded-lg border shadow-sm'>
@@ -38,14 +38,15 @@ export default function ProductCard({ product }: IProductComponent) {
           <div className='flex flex-col justify-center gap-2 p-3'>
             <button
               className='bg-[#00546B] p-1 text-white'
-              onClick={() =>
-                addItem({
-                  id: product?.id,
-                  image: product?.image,
-                  name: product?.name,
-                  price: product?.price,
-                })
-              }
+              onClick={() => {
+                setIsOpen(true),
+                  addItem({
+                    id: product?.id,
+                    image: product?.image,
+                    name: product?.name,
+                    price: product?.price,
+                  });
+              }}
             >
               Adicionar no carrinho
             </button>

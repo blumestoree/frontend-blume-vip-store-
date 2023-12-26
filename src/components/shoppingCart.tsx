@@ -3,13 +3,13 @@ import { useCart } from '@/src/providers/shoppingCartProvider';
 import Link from 'next/link';
 import Image from 'next/image';
 import CloseCartSvg from '/public/svg/arrow.svg';
-import { useState } from 'react';
 import ShoppingCartIcon from '/public/svg/shopping-cart.svg';
 import ArrowIcon from '/public/svg/arrow.svg';
 import Modal from 'react-modal';
+import TestImage from '/public/img/test.png';
 
 export default function ShoppingCart() {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useCart();
   const { cartItems, removeItem, removeAllItems, getCartTotal } = useCart();
 
   const cartAnimationClass = isOpen ? 'animateOpenCart' : 'animateCloseCart';
@@ -24,7 +24,7 @@ export default function ShoppingCart() {
         onRequestClose={() => setIsOpen(false)}
         contentLabel='Shopping Cart Modal'
         overlayClassName={{
-          base: 'fixed inset-0 bg-black/50',
+          base: 'fixed inset-0 bg-black/50 z-10',
           afterOpen: '',
           beforeClose: '',
         }}
@@ -40,14 +40,17 @@ export default function ShoppingCart() {
             <Image src={CloseCartSvg} width={20} height={20} alt='close' />
           </button>
           <div className='flex gap-3'>
-            <div className='rounded border p-1'>{cartItems?.length} item</div>
+            <div className='flex items-center gap-2 rounded-lg border border-blue-500 p-2 font-medium text-blue-500'>
+              <Image src={ArrowIcon} width={15} height={15} alt='remove item' />
+              <p>{cartItems?.length} item</p>
+            </div>
             <button
               onClick={() => {
                 removeAllItems();
               }}
-              className='rounded bg-blue-500 p-1'
+              className='rounded-lg bg-blue-500 p-2 font-medium'
             >
-              limpar carrinho
+              Limpar carrinho
             </button>
           </div>
         </div>
@@ -55,7 +58,8 @@ export default function ShoppingCart() {
           {cartItems.map((product) => (
             <div key={product.id} className='flex gap-2 bg-blue-100 px-1 py-3'>
               <Image
-                src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${product?.image}`}
+                src={TestImage}
+                // src={`https://${process.env.NEXT_PUBLIC_IMAGE_URL}/${product?.image}`}
                 width={100}
                 height={50}
                 alt='product image'
@@ -81,10 +85,17 @@ export default function ShoppingCart() {
           ))}
         </div>
         <div className='mt-auto flex justify-between'>
-          <div>Total</div>
-          <div>{getCartTotal()}</div>
+          <div className='text-xl text-gray-500 '>Total</div>
+          <div className='text-xl font-bold'>
+            {getCartTotal()?.toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </div>
         </div>
-        <Link href={`/checkout`}>FINALIZAR COMPRA</Link>
+        <button className='bg-[#00546B] p-1 text-white'>
+          <Link href={`/checkout`}>Finalizar a compra</Link>
+        </button>
       </Modal>
     </div>
   );

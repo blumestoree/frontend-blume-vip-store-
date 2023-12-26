@@ -10,6 +10,8 @@ interface ICartItems {
 
 interface ÍCartContextProps {
   cartItems: ICartItems[];
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setCartItems: React.Dispatch<React.SetStateAction<ICartItems[]>>;
   addItem: (item: ICartItems) => void;
   removeItem: (itemId: string) => void;
@@ -25,6 +27,7 @@ export const CartContext = createContext({} as ÍCartContextProps);
 
 export default function CartProvider({ children }: AppProviderProps) {
   const [cartItems, setCartItems] = useState<ICartItems[]>([]);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const addItem = (item: ICartItems) => {
     setCartItems((oldItems) => [...oldItems, item]);
@@ -49,6 +52,8 @@ export default function CartProvider({ children }: AppProviderProps) {
   return (
     <CartContext.Provider
       value={{
+        isOpen,
+        setIsOpen,
         cartItems,
         setCartItems,
         addItem,

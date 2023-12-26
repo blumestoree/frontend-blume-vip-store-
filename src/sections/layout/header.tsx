@@ -22,7 +22,7 @@ export default function Header() {
         />
         <div className='flex items-center gap-5'>
           <div className='text-base font-medium text-white'>
-            <div className='bg-'>Login</div>
+            <div>Login</div>
             <div>Cadastrar</div>
           </div>
           <ShoppingCart />

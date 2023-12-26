@@ -10,7 +10,7 @@ interface IProductInfos {
 }
 
 export default function ProductInfos({ product }: IProductInfos) {
-  const { addItem } = useCart();
+  const { addItem, setIsOpen } = useCart();
 
   return (
     <div className=' bg-blue-100/30 py-[70px]'>
@@ -37,14 +37,15 @@ export default function ProductInfos({ product }: IProductInfos) {
               </p>
               <button
                 className='bg-[#00546B] p-1 text-white'
-                onClick={() =>
-                  addItem({
-                    id: product?.id,
-                    image: product?.image,
-                    name: product?.name,
-                    price: product?.price,
-                  })
-                }
+                onClick={() => {
+                  setIsOpen(true),
+                    addItem({
+                      id: product?.id,
+                      image: product?.image,
+                      name: product?.name,
+                      price: product?.price,
+                    });
+                }}
               >
                 Adicionar no carrinho
               </button>
