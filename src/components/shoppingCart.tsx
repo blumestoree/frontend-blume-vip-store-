@@ -12,8 +12,6 @@ export default function ShoppingCart() {
   const { isOpen, setIsOpen } = useCart();
   const { cartItems, removeItem, removeAllItems, getCartTotal } = useCart();
 
-  const cartAnimationClass = isOpen ? 'animateOpenCart' : 'animateCloseCart';
-
   return (
     <div>
       <button onClick={() => setIsOpen(true)}>
@@ -29,13 +27,15 @@ export default function ShoppingCart() {
           beforeClose: '',
         }}
         className={{
-          base: `absolute right-0 top-0 flex h-screen w-[500px] transform flex-col bg-white p-5 animate-${cartAnimationClass}`,
-          afterOpen: '',
+          base: `absolute right-0 top-0 flex h-screen w-[500px] translate-x-full transform flex-col bg-white transition`,
+          afterOpen: `${
+            isOpen ? '!translate-x-0' : '!translate-x-full'
+          } transition`,
           beforeClose: '',
         }}
         closeTimeoutMS={200}
       >
-        <div className='flex justify-between'>
+        <div className='flex justify-between p-3'>
           <button onClick={() => setIsOpen(false)}>
             <Image src={CloseCartSvg} width={20} height={20} alt='close' />
           </button>
@@ -84,18 +84,20 @@ export default function ShoppingCart() {
             </div>
           ))}
         </div>
-        <div className='mt-auto flex justify-between'>
-          <div className='text-xl text-gray-500 '>Total</div>
-          <div className='text-xl font-bold'>
-            {getCartTotal()?.toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
+        <div className='mt-auto flex flex-col p-3 shadow-custom'>
+          <div className='flex justify-between'>
+            <div className='text-xl text-gray-500 '>Total</div>
+            <div className='text-xl font-bold'>
+              {getCartTotal()?.toLocaleString('pt-br', {
+                style: 'currency',
+                currency: 'BRL',
+              })}
+            </div>
           </div>
+          <button className='mt-2 bg-[#00546B] p-2 text-white'>
+            <Link href={`/checkout`}>Finalizar a compra</Link>
+          </button>
         </div>
-        <button className='bg-[#00546B] p-1 text-white'>
-          <Link href={`/checkout`}>Finalizar a compra</Link>
-        </button>
       </Modal>
     </div>
   );
