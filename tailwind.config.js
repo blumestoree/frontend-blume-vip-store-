@@ -19,19 +19,9 @@ module.exports = {
         xxl: '1250px',
         xxxl: '1540px',
       },
-      keyframes: {
-        animateOpenCart: {
-          from: { transform: 'translateX(100%)' },
-          to: { transform: 'translateX(0%)' },
-        },
-        animateCloseCart: {
-          from: { transform: 'translateX(0%)' },
-          to: { transform: 'translateX(100%)' },
-        },
-      },
-      animation: {
-        animateOpenCart: 'animateOpenCart 0.2s forwards',
-        animateCloseCart: 'animateCloseCart 0.2s forwards',
+      boxShadow: {
+        custom:
+          'rgba(14, 30, 37, 0.12) 0px 2px 2px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;',
       },
     },
   },

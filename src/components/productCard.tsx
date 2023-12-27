@@ -51,7 +51,7 @@ export default function ProductCard({ product }: IProductComponent) {
               Adicionar no carrinho
             </button>
             <button className='border border-[#00546B] p-1'>
-              Comprar agora
+              <Link href={`/checkout`}>Comprar agora</Link>
             </button>
           </div>
         </div>
