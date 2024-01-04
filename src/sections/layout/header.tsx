@@ -2,8 +2,12 @@ import Image from 'next/image';
 import ShoppingCart from '@/src/components/shoppingCart';
 import BlumeIcon from '/public/img/blume.png';
 import Link from 'next/link';
+import { cookies } from 'next/headers';
 
 export default function Header() {
+  const cookieStore = cookies();
+  const userName = cookieStore.get('user_name');
+
   return (
     <header className='fixed z-10 flex h-[70px] w-full items-center justify-between bg-[#101010]'>
       <div className='grid-style flex items-center justify-between'>
@@ -21,11 +25,25 @@ export default function Header() {
           className='h-[32px] w-2/4 rounded'
           placeholder='O que está procurando?'
         />
-        <div className='flex items-center gap-5'>
-          <div className='text-base font-medium text-white'>
-            <div>Login</div>
-            <div>Cadastrar</div>
-          </div>
+        <div className='flex items-center gap-5 text-white'>
+          {userName ? (
+            <div>Olá {userName?.value}</div>
+          ) : (
+            <div className='flex flex-col gap-2 text-base font-medium'>
+              <Link
+                className='rounded bg-blue-400 px-4 text-center hover:bg-blue-500'
+                href={'/conta'}
+              >
+                Login
+              </Link>
+              <Link
+                className='rounded bg-blue-400 px-4 text-center hover:bg-blue-500'
+                href={'/conta'}
+              >
+                Cadastrar
+              </Link>
+            </div>
+          )}
           <ShoppingCart />
         </div>
       </div>
