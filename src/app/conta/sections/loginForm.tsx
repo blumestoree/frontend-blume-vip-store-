@@ -30,6 +30,7 @@ export default function LoginForm() {
     try {
       const dataUser: Iuser = await api.post('/loginUser', data);
       setCookie(null, 'blume_token', dataUser.data.token);
+      setCookie(null, 'user_name', dataUser.data.name);
       setCookie(null, 'blume_user_id', dataUser.data.id);
       setCookie(null, 'blume_refresh_token', dataUser.data.refreshToken.id);
       router.push('/');
@@ -39,15 +40,30 @@ export default function LoginForm() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <h3>LOGIN</h3>
-          <input {...register('email')} placeholder='Email'></input>
-          <input {...register('password')} placeholder='Password'></input>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className='flex w-[400px] flex-col items-center gap-4'>
+        <h3 className='text-2xl font-bold'>FAZER LOGIN</h3>
+        <div className='flex w-full flex-col'>
+          <label className='text-xs'>Email</label>
+          <input
+            className='h-8 border'
+            {...register('email')}
+            placeholder='Email'
+          ></input>
         </div>
-        <button type='submit'>ENTRAR</button>
-      </form>
-    </div>
+        <div className='flex w-full flex-col'>
+          <label className='text-xs'>Password</label>
+          <input
+            className='h-8 border'
+            {...register('password')}
+            placeholder='Password'
+          ></input>
+        </div>
+        <button className='h-8 w-full bg-blue-500 text-white' type='submit'>
+          ENTRAR
+        </button>
+        <p className='text-xs underline'>Esqueci minha senha</p>
+      </div>
+    </form>
   );
 }

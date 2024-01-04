@@ -35,6 +35,7 @@ export default function RegisterForm() {
       const dataUser: Iuser = await api.post('/createUser', data);
       setCookie(null, 'blume_token', dataUser.data.token);
       setCookie(null, 'blume_user_id', dataUser.data.id);
+      setCookie(null, 'user_name', dataUser.data.name);
       setCookie(null, 'blume_refresh_token', dataUser.data.refreshToken.id);
       router.push('/');
     } catch (error) {
@@ -43,16 +44,37 @@ export default function RegisterForm() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <h3>CADASTRAR</h3>
-          <input {...register('name')} placeholder='Username'></input>
-          <input {...register('password')} placeholder='Password'></input>
-          <input {...register('email')} placeholder='Email'></input>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div className='flex w-[400px] flex-col items-center gap-4'>
+        <h3 className='text-2xl font-bold'>CRIAR CONTA</h3>
+        <div className='flex w-full flex-col'>
+          <label className='text-xs'>Nome</label>
+          <input
+            className='h-8 border'
+            {...register('name')}
+            placeholder='Name'
+          ></input>
         </div>
-        <button type='submit'>ENTRAR</button>
-      </form>
-    </div>
+        <div className='flex w-full flex-col'>
+          <label className='text-xs'>Email</label>
+          <input
+            className='h-8 border'
+            {...register('email')}
+            placeholder='Email'
+          ></input>
+        </div>
+        <div className='flex w-full flex-col'>
+          <label className='text-xs'>Password</label>
+          <input
+            className='h-8 border'
+            {...register('password')}
+            placeholder='Password'
+          ></input>
+        </div>
+        <button className='h-8 w-full bg-blue-500 text-white' type='submit'>
+          CRIAR CONTA
+        </button>
+      </div>
+    </form>
   );
 }
