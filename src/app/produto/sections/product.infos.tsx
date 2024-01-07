@@ -4,6 +4,8 @@ import { IProduct } from '@/src/types/IProduct';
 import { useCart } from '@/src/providers/shoppingCartProvider';
 import Image from 'next/image';
 import TestImage from '/public/img/test.png';
+import { api } from '@/src/service/api';
+import { parseCookies } from 'nookies';
 
 interface IProductInfos {
   product: IProduct;
@@ -11,6 +13,14 @@ interface IProductInfos {
 
 export default function ProductInfos({ product }: IProductInfos) {
   const { addItem, setIsOpen } = useCart();
+  const buyItem = async (functionInGame: string, gameItemName: string) => {
+    await api.post(`/addItemToUser`, {
+      functionInGame,
+      token: process.env.NEXT_PUBLIC_TOKEN_GAME,
+      gameUserId: parseCookies()?.blume_user_game_id,
+      gameItemName: gameItemName,
+    });
+  };
 
   return (
     <div className=' bg-blue-100/30 py-[70px]'>
@@ -49,7 +59,12 @@ export default function ProductInfos({ product }: IProductInfos) {
               >
                 Adicionar no carrinho
               </button>
-              <button className='border border-[#00546B] p-1'>
+              <button
+                onClick={() =>
+                  buyItem(product.category.functionInGame, product.gameItemName)
+                }
+                className='border border-[#00546B] p-1'
+              >
                 Comprar agora
               </button>
             </div>

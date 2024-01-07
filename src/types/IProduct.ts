@@ -8,7 +8,7 @@ export interface IProduct {
   categoryId: string;
   category: {
     id: string;
-    functions: string;
+    functionInGame: string;
     name: string;
   };
 }
