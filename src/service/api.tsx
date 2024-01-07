@@ -40,7 +40,8 @@ async function refreshAccessToken() {
     destroyCookie(null, 'blume_token');
     destroyCookie(null, 'blume_user_id');
     destroyCookie(null, 'blume_refresh_token');
-    destroyCookie(null, 'blume_user_id');
+    destroyCookie(null, 'blume_user_game_id');
+    destroyCookie(null, 'user_name');
   }
 }
 

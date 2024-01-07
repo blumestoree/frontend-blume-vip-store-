@@ -32,6 +32,7 @@ export default function LoginForm() {
       setCookie(null, 'blume_token', dataUser.data.token);
       setCookie(null, 'user_name', dataUser.data.name);
       setCookie(null, 'blume_user_id', dataUser.data.id);
+      setCookie(null, 'blume_user_game_id', dataUser.data.gameUserId);
       setCookie(null, 'blume_refresh_token', dataUser.data.refreshToken.id);
       router.push('/');
     } catch (error) {

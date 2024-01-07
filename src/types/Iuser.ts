@@ -3,6 +3,7 @@ export interface Iuser {
     name: string;
     token: string;
     id: string;
+    gameUserId: string;
     refreshToken: {
       id: string;
     };

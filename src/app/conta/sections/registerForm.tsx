@@ -18,6 +18,7 @@ const formSchema = z.object({
     .string()
     .nonempty('Este campo é obrigatório')
     .email('Email inválido'),
+  gameUserId: z.string(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -35,6 +36,7 @@ export default function RegisterForm() {
       const dataUser: Iuser = await api.post('/createUser', data);
       setCookie(null, 'blume_token', dataUser.data.token);
       setCookie(null, 'blume_user_id', dataUser.data.id);
+      setCookie(null, 'blume_user_game_id', dataUser.data.gameUserId);
       setCookie(null, 'user_name', dataUser.data.name);
       setCookie(null, 'blume_refresh_token', dataUser.data.refreshToken.id);
       router.push('/');
@@ -69,6 +71,14 @@ export default function RegisterForm() {
             className='h-8 border'
             {...register('password')}
             placeholder='Password'
+          ></input>
+        </div>
+        <div className='flex w-full flex-col'>
+          <label className='text-xs'>ID</label>
+          <input
+            className='h-8 border'
+            {...register('gameUserId')}
+            placeholder='ID no jogo'
           ></input>
         </div>
         <button className='h-8 w-full bg-blue-500 text-white' type='submit'>
