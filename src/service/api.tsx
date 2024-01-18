@@ -33,15 +33,17 @@ async function refreshAccessToken() {
     });
 
     const newAccessToken = response.data.token;
-    setCookie(null, 'blume_token', newAccessToken);
+
+    const userDataString = parseCookies().blume_user_data;
+    const userData = JSON.parse(userDataString);
+
+    userData.token = newAccessToken;
+
+    setCookie(null, 'blume_user_data', JSON.stringify(userData));
 
     return newAccessToken;
   } catch (error) {
-    destroyCookie(null, 'blume_token');
-    destroyCookie(null, 'blume_user_id');
-    destroyCookie(null, 'blume_refresh_token');
-    destroyCookie(null, 'blume_user_game_id');
-    destroyCookie(null, 'user_name');
+    destroyCookie(null, 'blume_user_data');
   }
 }
 

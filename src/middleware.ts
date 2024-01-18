@@ -6,8 +6,15 @@ export const config = {
 };
 
 export default function middleware(request: NextRequest) {
-  const token = request.cookies.get('blume_user_id')?.value;
+  const userDataCookie = request.cookies.get('blume_user_data');
   const loginURL = new URL('/login', request.url);
+
+  if (!userDataCookie) {
+    return NextResponse.redirect(loginURL);
+  }
+
+  const userData = JSON.parse(userDataCookie.value);
+  const token = userData.token;
 
   if (!token) {
     return NextResponse.redirect(loginURL);

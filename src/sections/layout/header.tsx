@@ -6,7 +6,8 @@ import { cookies } from 'next/headers';
 
 export default function Header() {
   const cookieStore = cookies();
-  const userName = cookieStore.get('user_name');
+  const cookieValue = cookieStore.get('blume_user_data')?.value;
+  const userData = cookieValue ? JSON.parse(cookieValue) : null;
 
   return (
     <header className='fixed z-10 flex h-[70px] w-full items-center justify-between bg-[#101010]'>
@@ -26,8 +27,8 @@ export default function Header() {
           placeholder='O que está procurando?'
         />
         <div className='flex items-center gap-5 text-white'>
-          {userName ? (
-            <div>Olá {userName?.value}</div>
+          {userData ? (
+            <div>Olá {userData?.name}</div>
           ) : (
             <div className='flex flex-col gap-2 text-base font-medium'>
               <Link

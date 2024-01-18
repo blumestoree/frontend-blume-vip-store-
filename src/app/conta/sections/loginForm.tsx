@@ -29,11 +29,14 @@ export default function LoginForm() {
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     try {
       const dataUser: Iuser = await api.post('/loginUser', data);
-      setCookie(null, 'blume_token', dataUser.data.token);
-      setCookie(null, 'user_name', dataUser.data.name);
-      setCookie(null, 'blume_user_id', dataUser.data.id);
-      setCookie(null, 'blume_user_game_id', dataUser.data.gameUserId);
-      setCookie(null, 'blume_refresh_token', dataUser.data.refreshToken.id);
+      
+      const userData = {
+        token: dataUser.data.token,
+        name: dataUser.data.name,
+        refreshToken: dataUser.data.refreshToken.id,
+      };
+
+      setCookie(null, 'blume_user_data', JSON.stringify(userData));
       router.push('/');
     } catch (error) {
       console.log(error);
