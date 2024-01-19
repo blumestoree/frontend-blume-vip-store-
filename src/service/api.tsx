@@ -39,7 +39,9 @@ async function refreshAccessToken() {
 
     userData.token = newAccessToken;
 
-    setCookie(null, 'blume_user_data', JSON.stringify(userData));
+    setCookie(null, 'blume_user_data', JSON.stringify(userData), {
+      maxAge: 30,
+    });
 
     return newAccessToken;
   } catch (error) {

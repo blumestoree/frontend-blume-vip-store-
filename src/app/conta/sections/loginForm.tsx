@@ -36,7 +36,10 @@ export default function LoginForm() {
         refreshToken: dataUser.data.refreshToken.id,
       };
 
-      setCookie(null, 'blume_user_data', JSON.stringify(userData));
+      setCookie(null, 'blume_user_data', JSON.stringify(userData), {
+        maxAge: 30,
+      });
+      
       router.push('/');
     } catch (error) {
       console.log(error);
