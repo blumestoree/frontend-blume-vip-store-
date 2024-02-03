@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "test": "vitest",
     "lint": "next lint"
   },
   "dependencies": {
@@ -31,15 +32,19 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@testing-library/react": "^14.2.1",
     "@types/node": "^20.6.2",
     "@types/react": "^18.2.22",
     "@types/react-credit-cards": "^0.8.2",
     "@types/react-dom": "18.2.7",
     "@types/react-modal": "^3.16.3",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@vitejs/plugin-react": "^4.2.1",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "jsdom": "^24.0.0",
     "prettier": "^2.8.8",
-    "prettier-plugin-tailwindcss": "^0.4.1"
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "vitest": "^1.2.2"
   }
 }
