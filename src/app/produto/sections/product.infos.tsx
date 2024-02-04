@@ -1,18 +1,19 @@
 'use client';
 
 import { IProduct } from '@/src/types/IProduct';
-import { useCart } from '@/src/providers/shoppingCartProvider';
 import Image from 'next/image';
 import TestImage from '/public/img/test.png';
 import { api } from '@/src/service/api';
 import { parseCookies } from 'nookies';
+import { useStore } from '@/src/store/shoppingCartProvider';
 
 interface IProductInfos {
   product: IProduct;
 }
 
 export default function ProductInfos({ product }: IProductInfos) {
-  const { addItem, setIsOpen } = useCart();
+  const { addItem, handleOpenIsOpen } = useStore();
+
   const buyItem = async (functionInGame: string, gameItemName: string) => {
     await api.post(`/addItemToUser`, {
       functionInGame,
@@ -48,7 +49,7 @@ export default function ProductInfos({ product }: IProductInfos) {
               <button
                 className='bg-[#00546B] p-1 text-white'
                 onClick={() => {
-                  setIsOpen(true),
+                  handleOpenIsOpen(),
                     addItem({
                       id: product?.id,
                       image: product?.image,

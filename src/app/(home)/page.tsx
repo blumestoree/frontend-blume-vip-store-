@@ -1,7 +1,7 @@
 import { url, serverId } from '@/src/utils/url';
 import { ICategory } from '@/src/types/ICategory';
-import HomeBanner from './sections/home.banner';
-import HomeItems from './sections/home.items';
+import HomeBanner from './sections/baner/home.banner';
+import HomeItems from './sections/items/home.items';
 
 async function getAllCategory(): Promise<ICategory[]> {
   try {
