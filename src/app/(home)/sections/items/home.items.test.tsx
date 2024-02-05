@@ -4,13 +4,13 @@ import HomeItems from './home.items';
 
 const mockCategories = [
   {
-    id: 'categoryId',
+    id: 'categoryId 1',
     name: 'Category 1',
     serverId: 'serverId',
     functionInGame: 'functionInGame',
     products: [
       {
-        id: 'productId',
+        id: 'productId 1',
         name: 'Product 1',
         gameItemName: 'gameItemName',
         image: 'image',
@@ -24,7 +24,7 @@ const mockCategories = [
         },
       },
       {
-        id: 'productId',
+        id: 'productId 2',
         name: 'Product 2',
         gameItemName: 'gameItemName',
         image: 'image',
@@ -40,13 +40,13 @@ const mockCategories = [
     ],
   },
   {
-    id: 'categoryId',
+    id: 'categoryId 3',
     name: 'Category 2',
     serverId: 'serverId',
     functionInGame: 'functionInGame',
     products: [
       {
-        id: 'productId',
+        id: 'productId 3',
         name: 'Product 2',
         gameItemName: 'gameItemName',
         image: 'image',
