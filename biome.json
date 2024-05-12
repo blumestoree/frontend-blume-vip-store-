@@ -16,6 +16,9 @@
 			},
 			"style": {
 				"noParameterAssign": "off"
+			},
+			"nursery": {
+				"useSortedClasses": "warn"
 			}
 		}
 	},
