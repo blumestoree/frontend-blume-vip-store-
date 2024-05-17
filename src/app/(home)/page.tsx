@@ -1,19 +1,23 @@
+import { fetchHttpAdapter, type httpClient } from "@/src/service";
 import type { ICategory } from "@/src/types/ICategory";
-import { url, serverId } from "@/src/utils/url";
+import { serverId } from "@/src/utils/url";
 import HomeBanner from "./sections/baner/home.banner";
 import HomeItems from "./sections/items/home.items";
 
-async function getAllCategory(): Promise<ICategory[]> {
+async function getAllCategory(httpClient: httpClient): Promise<ICategory[]> {
 	try {
-		const response = await fetch(`${url}/findAllCategory?serverId=${serverId}`);
-		return response.json();
+		const response = await httpClient.request({
+			url: `/findAllCategory?serverId=${serverId}`,
+			method: "get",
+		});
+		return response.body;
 	} catch (error) {
 		return [];
 	}
 }
 
 export default async function Home() {
-	const response = await getAllCategory();
+	const response = await getAllCategory(fetchHttpAdapter);
 
 	return (
 		<main>

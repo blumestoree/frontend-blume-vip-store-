@@ -1,7 +1,7 @@
 import type { IProduct } from "@/src/types/IProduct";
-import { url } from "@/src/utils/url";
 import { notFound } from "next/navigation";
 import ProductInfos from "../sections/product.infos";
+import { fetchHttpAdapter, httpClient } from "@/src/service";
 
 interface Props {
 	params: {
@@ -9,16 +9,19 @@ interface Props {
 	};
 }
 
-async function getProdutcData(slug: string): Promise<IProduct> {
-	const response = await fetch(`${url}/findProduct/${slug}`);
-	if (response.status === 404) {
+async function getProdutcData(httpClient: httpClient, slug: string): Promise<IProduct> {
+	const response = await httpClient.request({
+		url: `/findProduct/${slug}`,
+		method: "get",
+	});
+	if (response.statusCode === 404) {
 		notFound();
 	}
-	return response.json();
+	return response.body;
 }
 
 export default async function Product({ params }: Props) {
-	const product = await getProdutcData(params.slug);
+	const product = await getProdutcData(fetchHttpAdapter, params.slug);
 
 	return (
 		<div>
