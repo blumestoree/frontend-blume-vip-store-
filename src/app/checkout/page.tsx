@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/src/providers/shoppingCartProvider";
-import { api } from "@/src/service/api";
+import { axiosHttpAdapter, type httpClient } from "@/src/service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { parseCookies } from "nookies";
 import { useState } from "react";
@@ -41,8 +41,16 @@ export default function Checkout() {
 	//  setState({ focus: e.target.name });
 	// }
 
+	const buyProduct = async (httpClient: httpClient, data: any): Promise<any> => {
+		return await httpClient.request({
+			url: `/buyProduct${parseCookies().blume_user_id}`,
+			method: "post",
+			body: data,
+		});
+	};
+
 	const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-		await api.post(`/buyProduct/${parseCookies().blume_user_id}`, {
+		await buyProduct(axiosHttpAdapter, {
 			productId: cartItems.map((product) => {
 				return product.id;
 			}),
@@ -68,36 +76,32 @@ export default function Checkout() {
 						setValueAs: (v: string) => Number(v),
 					})}
 					placeholder="parcelas"
-				></input>
+				/>
 				<input
 					placeholder="Nome"
 					onFocus={() => setFocus("name")}
 					{...register("creditCard.name")}
-				></input>
+				/>
 				<input
 					placeholder="Número"
 					onFocus={() => setFocus("number")}
 					{...register("creditCard.number")}
-				></input>
-				<input
-					placeholder="CVC"
-					onFocus={() => setFocus("cvc")}
-					{...register("creditCard.cvc")}
-				></input>
+				/>
+				<input placeholder="CVC" onFocus={() => setFocus("cvc")} {...register("creditCard.cvc")} />
 				<input
 					placeholder="Validade mes"
 					onFocus={() => setFocus("expiry")}
 					{...register("creditCard.expiryMonth", {
 						setValueAs: (v: string) => Number(v),
 					})}
-				></input>
+				/>
 				<input
 					placeholder="Validade ano"
 					onFocus={() => setFocus("expiry")}
 					{...register("creditCard.expiryYear", {
 						setValueAs: (v: string) => Number(v),
 					})}
-				></input>
+				/>
 				<CreditCard
 					name={name || ""}
 					focused={focus}

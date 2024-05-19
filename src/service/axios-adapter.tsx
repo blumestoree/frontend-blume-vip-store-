@@ -1,5 +1,6 @@
-import axios, { type AxiosError } from "axios";
+import axios, { type AxiosError, type AxiosResponse } from "axios";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
+import type { httpClient, httpRequest } from "./dto.http.adapter";
 
 let isRefreshing = false;
 
@@ -95,3 +96,26 @@ api.interceptors.response.use(
 		return Promise.reject(error);
 	},
 );
+
+export const axiosHttpAdapter: httpClient = {
+	async request(data: httpRequest) {
+		let axiosResponse: AxiosResponse;
+
+		try {
+			axiosResponse = await axios.request({
+				baseURL: process.env.NEXT_PUBLIC_ENDPOINT,
+				url: data.url,
+				method: data.method,
+				data: data.body,
+			});
+		} catch (error) {
+			const _error = error as AxiosError<{ message: string }>;
+			throw new Error(_error?.response?.data?.message || _error.message);
+		}
+
+		return {
+			statusCode: axiosResponse.status,
+			body: axiosResponse.data,
+		};
+	},
+};

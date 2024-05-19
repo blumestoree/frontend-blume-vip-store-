@@ -1,6 +1,6 @@
 "use client";
 
-import { api } from "@/src/service/api";
+import { axiosHttpAdapter, type httpClient } from "@/src/service";
 import { useStore } from "@/src/store/shoppingCartProvider";
 import type { IProduct } from "@/src/types/IProduct";
 import Image from "next/image";
@@ -14,17 +14,21 @@ interface IProductInfos {
 export default function ProductInfos({ product }: IProductInfos) {
 	const { addItem, handleOpenIsOpen } = useStore();
 
-	const buyItem = async (functionInGame: string, gameItemName: string) => {
-		await api.post(`/addItemToUser`, {
-			functionInGame,
-			token: process.env.NEXT_PUBLIC_TOKEN_GAME,
-			gameUserId: parseCookies()?.blume_user_game_id,
-			gameItemName: gameItemName,
+	const buyItem = async (httpClient: httpClient, functionInGame: string, gameItemName: string) => {
+		return await httpClient.request({
+			url: "/addItemToUser",
+			method: "post",
+			body: {
+				functionInGame,
+				token: process.env.NEXT_PUBLIC_TOKEN_GAME,
+				gameUserId: parseCookies()?.blume_user_game_id,
+				gameItemName: gameItemName,
+			},
 		});
 	};
 
 	return (
-		<div className=" bg-blue-100/30 py-[70px]">
+		<div className="bg-blue-100/30 py-[70px]">
 			<div className="grid-style">
 				<div className="flex justify-center gap-5">
 					<Image
@@ -59,7 +63,9 @@ export default function ProductInfos({ product }: IProductInfos) {
 								Adicionar no carrinho
 							</button>
 							<button
-								onClick={() => buyItem(product.category.functionInGame, product.gameItemName)}
+								onClick={() =>
+									buyItem(axiosHttpAdapter, product.category.functionInGame, product.gameItemName)
+								}
 								className="border border-[#00546B] p-1"
 							>
 								Comprar agora

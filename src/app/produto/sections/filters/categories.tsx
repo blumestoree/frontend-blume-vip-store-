@@ -1,4 +1,4 @@
-import { api } from "@/src/service/api";
+import { axiosHttpAdapter, type httpClient } from "@/src/service";
 import type { ICategory } from "@/src/types/ICategory";
 import type { IProduct } from "@/src/types/IProduct";
 import { useEffect, useState } from "react";
@@ -15,9 +15,15 @@ export default function SelectCategories({ categories, setNewProducts }: ISelect
 		setSelectedCategories((prevSelectedCategories) => {
 			if (prevSelectedCategories.includes(categoryId)) {
 				return prevSelectedCategories.filter((id) => id !== categoryId);
-			} else {
-				return [...prevSelectedCategories, categoryId];
 			}
+			return [...prevSelectedCategories, categoryId];
+		});
+	};
+
+	const findAllProducts = async (httpClient: httpClient, params: any): Promise<any> => {
+		return await httpClient.request({
+			url: `/findAllProduct?${params.toString()}`,
+			method: "get",
 		});
 	};
 
@@ -29,7 +35,7 @@ export default function SelectCategories({ categories, setNewProducts }: ISelect
 				params.append("categoryId", categoryId);
 			});
 
-			const { data } = await api.get(`/findAllProduct?${params.toString()}`);
+			const data = await findAllProducts(axiosHttpAdapter, params.toString());
 			setNewProducts(data);
 		};
 
@@ -43,9 +49,7 @@ export default function SelectCategories({ categories, setNewProducts }: ISelect
 				<div className="mb-3 flex items-center gap-2" key={category.id}>
 					<input
 						onClick={() => toggleCategory(category.id)}
-						className="h-4 w-4 shrink-0 appearance-none rounded-sm border-2
-	  border-black/50 bg-white
-	  checked:border-0 checked:bg-blue-800 hover:border-blue-800"
+						className="h-4 w-4 shrink-0 appearance-none rounded-sm border-2 border-black/50 bg-white checked:border-0 checked:bg-blue-800 hover:border-blue-800"
 						type="checkbox"
 					/>
 					<p className="text-base">{category.name}</p>

@@ -1,5 +1,6 @@
 "use client";
 
+import { axiosHttpAdapter, type httpClient } from "@/src/service";
 import { api } from "@/src/service/api";
 import type { Iuser } from "@/src/types/Iuser";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,9 +29,18 @@ export default function RegisterForm() {
 		// reValidateMode: 'onChange',
 	});
 
+	const createUser = async (httpClient: httpClient, data: any): Promise<Iuser> => {
+		return await httpClient.request({
+			url: "/createUser",
+			method: "post",
+			body: data,
+		});
+	};
+
 	const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
 		try {
-			const dataUser: Iuser = await api.post("/createUser", data);
+			const dataUser = await createUser(axiosHttpAdapter, data);
+
 			const userData = {
 				token: dataUser.data.token,
 				name: dataUser.data.name,
