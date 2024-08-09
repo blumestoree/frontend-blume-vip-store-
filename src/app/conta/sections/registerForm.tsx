@@ -1,7 +1,7 @@
 "use client";
 
+import { createUserMapper } from "@/src/mappers/createUser";
 import { axiosHttpAdapter, type httpClient } from "@/src/service";
-import { api } from "@/src/service/api";
 import type { Iuser } from "@/src/types/Iuser";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
@@ -29,8 +29,8 @@ export default function RegisterForm() {
 		// reValidateMode: 'onChange',
 	});
 
-	const createUser = async (httpClient: httpClient, data: any): Promise<Iuser> => {
-		return await httpClient.request({
+	const createUser = async (httpClient: httpClient<Iuser>, data: any) => {
+	  return await httpClient.request({
 			url: "/createUser",
 			method: "post",
 			body: data,
@@ -41,17 +41,12 @@ export default function RegisterForm() {
 		try {
 			const dataUser = await createUser(axiosHttpAdapter, data);
 
-			const userData = {
-				token: dataUser.data.token,
-				name: dataUser.data.name,
-				refreshToken: dataUser.data.refreshToken.id,
-			};
-
+			const userData = createUserMapper(dataUser.body);
 			setCookie(null, "blume_user_data", JSON.stringify(userData), {
 				maxAge: 30,
 			});
 
-			router.push("/");
+			// router.push("/");
 		} catch (error) {
 			console.log(error);
 		}

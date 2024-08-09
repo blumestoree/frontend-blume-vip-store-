@@ -1,11 +1,8 @@
 export interface Iuser {
-	data: {
-		name: string;
-		token: string;
+	name: string;
+	token: string;
+	id: string;
+	refreshToken: {
 		id: string;
-		gameUserId: string;
-		refreshToken: {
-			id: string;
-		};
 	};
 }
