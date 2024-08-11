@@ -17,7 +17,7 @@ export const fetchHttpAdapter: httpClient = {
 
 		return {
 			statusCode: fetchResponse.status,
-			body: fetchResponse.json(),
+			body: await fetchResponse.json(),
 		};
 	},
 };
