@@ -19,11 +19,12 @@ export default async function Dashboard() {
 
 	return (
 		<main>
-			<div className="h-20 w-20 bg-blue-500">
+			<div className="bg-blue-500">
 				{userDataMapper?.userOnServer?.map((item) => (
 					<div key={item.id}>
-						<p>{item.nickname}</p>
-						<p>{item.server.name}</p>
+						<p>Nome: {item.nickname}</p>
+						<p>Id no servidor: {item.gameUserId}</p>
+						<p>Servidor {item.server.name}</p>
 					</div>
 				))}
 			</div>
