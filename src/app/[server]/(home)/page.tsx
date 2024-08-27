@@ -1,28 +1,40 @@
 import { fetchHttpAdapter, type httpClient } from "@/src/service";
-import type { ICategory } from "@/src/types/ICategory";
-import { serverId } from "@/src/utils/url";
+import type { IServer } from "@/src/types/IServer";
 import HomeBanner from "./sections/baner/home.banner";
 import HomeItems from "./sections/items/home.items";
+import { serverMapper } from "@/src/mappers/server";
+import { ICategory } from "@/src/types/ICategory";
 
-async function getAllCategory(httpClient: httpClient): Promise<ICategory[]> {
-	try {
-		const response = await httpClient.request({
+async function getAllCategory(httpClient: httpClient<ICategory[]>, serverId: string){
+		const data = await httpClient.request({
 			url: `/findAllCategory?serverId=${serverId}`,
 			method: "get",
 		});
-		return response.body;
-	} catch (error) {
-		return [];
+		return {
+			status: data.statusCode,
+			body: data.body,
+		}
+}
+
+async function getServer(httpClient: httpClient<IServer>, server: string) {
+	const data = await httpClient.request({
+		url: `/findServer?slug=${server}`,
+		method: "get",
+	});
+	return {
+		status: data.statusCode,
+		body: serverMapper(data.body),
 	}
 }
 
-export default async function Home() {
-	const response = await getAllCategory(fetchHttpAdapter);
+export default async function Home({ params }: { params: { server: string } }) {
+	const server = await getServer(fetchHttpAdapter, params.server);
+	const categories = await getAllCategory(fetchHttpAdapter, server.body.id);
 
 	return (
 		<main>
-			<HomeBanner />
-			<HomeItems categories={response} />
+			<HomeBanner/>
+			<HomeItems categories={categories.body} />
 		</main>
 	);
 }
