@@ -1,6 +1,6 @@
 import { createUserMapper } from "@/src/mappers/createUser";
 import { fetchHttpAdapter, type httpClient } from "@/src/service";
-import type { Iuser, IuserApi } from "@/src/types/Iuser";
+import type { Iuser, IuserApi } from "@/src/types/IUser";
 import { cookies } from "next/headers";
 
 async function getUser(httpClient: httpClient<IuserApi>, userId: string) {

@@ -4,10 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import TestImage from "/public/img/test.png";
 import { useCart } from "../providers/shoppingCartProvider";
-import type { IProduct } from "../types/IProduct";
+import type { IProductWithoutCategoryId } from "../types/IProduct";
 
 interface IProductComponent {
-	product: IProduct;
+	product: IProductWithoutCategoryId;
 }
 
 export default function ProductCard({ product }: IProductComponent) {

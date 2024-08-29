@@ -1,4 +1,4 @@
-import type { Iuser, IuserApi } from "../types/Iuser";
+import type { Iuser, IuserApi } from "../types/IUser";
 
 export function createUserMapper(item: IuserApi): Iuser {
 	return {
