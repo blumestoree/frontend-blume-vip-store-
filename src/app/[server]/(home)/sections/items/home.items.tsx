@@ -12,12 +12,12 @@ export default function HomeItems({ categories }: IHomeItems) {
 			{categories?.map((category) => (
 				<div key={category?.id}>
 					<div className="flex justify-between">
-						<div className="mb-5 text-3xl font-bold text-black">{category?.name}</div>
-						<Link href="/produto" className="text-sm text-black/50">
+						<div className="mb-5 font-bold text-3xl text-black">{category?.name}</div>
+						<Link href="/produto" className="text-black/50 text-sm">
 							VER TODOS
 						</Link>
 					</div>
-					<div className="mb-20 grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4">
+					<div className="mb-20 grid grid-cols-1 xxl:grid-cols-4 gap-10 md:grid-cols-2 xl:grid-cols-3">
 						{category?.products?.slice(0, 4).map((product) => (
 							<ProductCard key={product?.id} product={product} />
 						))}
