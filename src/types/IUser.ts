@@ -1,4 +1,4 @@
-export interface Iuser {
+export interface IUser {
 	id: string;
 	name: string;
 	email: string;
@@ -18,7 +18,7 @@ export interface Iuser {
 		expiresIn: number;
 	};
 }
-export interface IuserApi {
+export interface IUserApi {
 	id: string;
 	name: string;
 	email: string;

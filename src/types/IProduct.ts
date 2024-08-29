@@ -6,9 +6,6 @@ export interface IProduct {
 	price: number;
 	serverId: string;
 	categoryId: string;
-	category: {
-		id: string;
-		functionInGame: string;
-		name: string;
-	};
 }
+
+export type IProductWithoutCategoryId = Omit<IProduct, "categoryId">;
