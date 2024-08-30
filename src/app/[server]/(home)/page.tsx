@@ -6,6 +6,12 @@ import type { IServer } from "@/src/types/IServer";
 import HomeBanner from "./sections/baner/home.banner";
 import HomeItems from "./sections/items/home.items";
 
+interface Props {
+	params: {
+		server: string;
+	};
+}
+
 async function getAllCategory(httpClient: httpClient<ICategory[]>, serverId: string) {
 	const data = await httpClient.request({
 		url: `/findAllCategory?serverId=${serverId}`,
@@ -28,7 +34,7 @@ async function getServer(httpClient: httpClient<IServer>, server: string) {
 	};
 }
 
-export default async function Home({ params }: { params: { server: string } }) {
+export default async function Home({ params }: Props) {
 	const server = await getServer(fetchHttpAdapter, params.server);
 	const categories = await getAllCategory(fetchHttpAdapter, server.body.id);
 
