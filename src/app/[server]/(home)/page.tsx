@@ -35,7 +35,7 @@ export default async function Home({ params }: { params: { server: string } }) {
 	return (
 		<main>
 			<HomeBanner banner={server.body.banner} />
-			<HomeItems categories={categories.body} />
+			<HomeItems categories={categories.body} slug={server.body.slug} />
 		</main>
 	);
 }
